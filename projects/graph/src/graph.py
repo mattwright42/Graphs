@@ -98,3 +98,40 @@ class Graph:
                 # Then, put all of it's children into the stack
                 for neighbor in self.vertices[v]:
                     s.push(neighbor)
+
+    def dft_recursion(self, starting_vert, path=[]):
+        path += [starting_vert]
+
+        print(path)
+
+        for neighbor in self.vertices[starting_vert]:
+            if neighbor not in path:
+                path = self.dft_recursion(neighbor, path)
+            if neighbor is None:
+                break
+        return path
+
+
+g = Graph()
+
+g.add_vertex('1')
+g.add_vertex('2')
+g.add_vertex('3')
+g.add_vertex('4')
+g.add_vertex('5')
+g.add_vertex('6')
+g.add_vertex('7')
+g.add_directed_edge('1', '2')
+g.add_directed_edge('2', '3')
+g.add_directed_edge('3', '4')
+g.add_directed_edge('4', '5')
+g.add_directed_edge('5', '6')
+g.add_directed_edge('6', '7')
+g.add_directed_edge('7', '6')
+g.add_directed_edge('6', '5')
+g.add_directed_edge('5', '4')
+g.add_directed_edge('4', '3')
+g.add_directed_edge('3', '2')
+g.add_directed_edge('2', '1')
+
+g.dft_recursion('4')
