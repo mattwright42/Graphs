@@ -111,6 +111,46 @@ class Graph:
                 break
         return path
 
+    def bfs(self, start, end):
+        verts = self.vertices
+        # maintain a queue of paths
+        queue = []
+        # push the first path into the queue
+        queue.append([start])
+        while len(queue) > 0:
+            # get the first path from the queue
+            path = queue.pop(0)
+            # get the last node from the path
+            node = path[-1]
+            # path found
+            if node == end:
+                return print(path)
+                # enumerate all adjacent nodes, construct a new path and push it into the queue
+            for adjacent in verts.get(node, []):
+                new_path = list(path)
+                new_path.append(adjacent)
+                queue.append(new_path)
+
+    def dfs(self, start, end):
+        # Create an empty stack
+        s = Stack()
+        # Create an empty set of visited vertices
+        visited = set()
+        # Put the starting vertex in our Stack
+        s.push(start)
+        # While the stack is not empty....
+        while end not in visited:
+            # Pop the top node from the stack
+            v = s.pop()
+            # If that node has not been visted...
+            if v not in visited:
+                    # Mark it as visited
+                print(v)
+                visited.add(v)
+                # Then, put all of it's children into the stack
+                for neighbor in self.vertices[v]:
+                    s.push(neighbor)
+
 
 g = Graph()
 
