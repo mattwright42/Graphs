@@ -1,4 +1,5 @@
 import random
+from queue import *
 
 
 class User:
@@ -53,16 +54,16 @@ class SocialGraph:
 
         # Add users
         for i in range(numUsers):
-            self.addUser(f"User {i + 1}")
+            self.addUser(f"User {i+1}")
 
-        # Create friendships
+        # create friendships
         possibleFriendships = []
         for userID in self.users:
             for friendID in range(userID + 1, self.lastID + 1):
                 possibleFriendships.append((userID, friendID))
-            random.shuffle(possibleFriendships)
-            print(possibleFriendships[:20])
-            print(len(possibleFriendships))
+        random.shuffle(possibleFriendships)
+        print(possibleFriendships)
+        print(len(possibleFriendships))
 
     def getAllSocialPaths(self, userID):
         """
@@ -75,6 +76,10 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        q = Queue()
+        q.put(2)
+        print(q.qsize())
+
         return visited
 
 
