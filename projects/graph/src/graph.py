@@ -148,8 +148,11 @@ class Graph:
                 print(v)
                 visited.add(v)
                 # Then, put all of it's children into the stack
-                for neighbor in self.vertices[v]:
-                    s.push(neighbor)
+                if v is not None:
+                    for neighbor in self.vertices[v]:
+                        s.push(neighbor)
+                else:
+                    return print("they don't connect")
 
 
 g = Graph()
