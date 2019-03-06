@@ -74,21 +74,52 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
         q = Queue()
-        q.put(2)
-        print(q.qsize())
+        # Create an empty set of visited vertices
+        # Put the starting vertex in our Queue
+        q.put(userID)
+        # While the queue is not empty...
+        while q.qsize() > 0:
+            # Dequeue the first node from the queue
+            path = []
+            path.append(q.get())  # this is the path
+            # If that node has not been visited...
+            print("path: ", path)
+            v = path[-1]
+            if v not in visited:
+                # Mark it as visited
+                visited[v] = path
+                print("visited: ", visited)
+                print("friendships: ", self.friendships)
 
+                for friendship in self.friendships[v]:
+                    new_path = self.friendships[v]
+                    print("new_path: ", new_path)
+                    new_path.add(friendship)
+                    print("new_path2: ", new_path)
+                    q.put(friendship)
+
+        print("visited: ", visited)
         return visited
+        # return self.getAllSocialPaths(userID + 1)
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populateGraph(10, 2)
-    print(sg.friendships)
+    sg.addFriendship(1, 2)
+    sg.addFriendship(3, 7)
+    sg.addFriendship(5, 2)
+    sg.addFriendship(1, 2)
+    sg.addFriendship(1, 5)
+    sg.addFriendship(1, 7)
+    sg.addFriendship(4, 9)
+    sg.addFriendship(4, 5)
+    sg.addFriendship(6, 1)
     connections = sg.getAllSocialPaths(1)
-    print(connections)
 
 # 10 choose 2
 # n! / 2 * (n - 2)!
