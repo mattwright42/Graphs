@@ -63,8 +63,22 @@ while unexplored_exits:
     
     # remove unvisited room, move to the next room, add move to traversalPath
     print('unexplored 2:', unexplored_exits )
-    player.travel(move)
+    print(f'move is {move}')
+    print(f'unexplored_exits are {unexplored_exits}')
     unexplored_exits.remove(f'{current_room}{move}')
+
+    prevRoom = player.currentRoom.id
+    print(f'The prevRoom is {prevRoom}')
+    
+    player.travel(move)
+    print(f'move is {move}')
+    if move == 'n':
+        unexplored_exits.add(f'{prevRoom}"s"')
+        visited_rooms[player.currentRoom.id] = {'s':prevRoom}
+        print('TEST room values:', visited_rooms[player.currentRoom])
+
+
+
     print('current room after loop', current_room)
     # print('travel:', player.travel(move))
     traversalPath.append(move)
