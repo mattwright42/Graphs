@@ -24,6 +24,79 @@ player = Player("Name", world.startingRoom)
 # FILL THIS IN
 traversalPath = ['n', 's']
 
+# init dictionary of visited rooms
+visited_rooms = {}
+visited_rooms[player.currentRoom.id] = {x: '?' for x in player.currentRoom.getExits()}
+print('visited_rooms:', visited_rooms)
+# print(player.currentRoom.id)
+
+# init set of unexplored exits for base condition
+unexplored_exits = set()
+for exit in player.currentRoom.getExits():
+    unexplored_exits.add(f'{player.currentRoom.id}{exit}')
+print('unexplored_exits:', unexplored_exits)
+
+#assign current room
+current_room = player.currentRoom.id
+move = None
+
+# backtracking
+# inverseDirections = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+# visited_rooms[current_room] = inverseDirections
+# print('backtrack:', visited_rooms)   
+
+# depth first search to find a dead end
+while unexplored_exits:
+    print('visited room values:', visited_rooms[player.currentRoom.id].values())
+    if '?' in visited_rooms[current_room].values():
+        print('in loop:', current_room)
+        #find a room that hasn't been visited
+        print('find room n value:',visited_rooms[current_room]['n'])
+        if visited_rooms[current_room]['n'] == '?':
+            move = 'n'
+        elif visited_rooms[current_room]['s'] == '?':
+            move = 's'
+        elif visited_rooms[current_room]['e'] == '?':
+            move = 'e'
+        elif visited_rooms[current_room]['w'] == '?':
+            move = 'w'
+    
+    # remove unvisited room, move to the next room, add move to traversalPath
+    print('unexplored 2:', unexplored_exits )
+    player.travel(move)
+    unexplored_exits.remove(f'{current_room}{move}')
+    print('current room after loop', current_room)
+    # print('travel:', player.travel(move))
+    traversalPath.append(move)
+    print('traversalPath:', traversalPath)
+
+    # add new room to visited room
+    if current_room not in visited_rooms:
+        visited_rooms[current_room] = {x: '?' for x in player.currentRoom.getExits()}
+    
+    #update current_room and room
+    visited_rooms
+
+    # backtracking
+
+    # inverseDirections = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+    # visited_rooms[current_room] = inverseDirections
+    # print(visited_rooms)    
+
+#BFS looking for nearest unexplored exit
+    # else:
+    #     q = Queue()
+    #     q.put([userID])
+    #     while q.qsize() > 0:
+    #         path = q.get()
+    #         v = path[-1]
+    #         if v not in visited:
+    #             visited[v] = path
+    #             for friendship in self.friendships[v]:
+    #                 if friendship not in visited:
+    #                     q.put(list(path) + [friendship])
+
+    #     return visited    
 
 
 
@@ -44,7 +117,7 @@ else:
     print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
 
 
-
+world.printRooms()
 #######
 # UNCOMMENT TO WALK AROUND
 #######
@@ -55,3 +128,20 @@ else:
 #         player.travel(cmds[0], True)
 #     else:
 #         print("I did not understand that command.")
+
+
+# player.currentRoom.id == gives id to current room
+
+# player.currentRoom.getExits() == return all available exits
+
+# player.travel(direction) == 
+
+# get the current user location
+
+def traversing(start):
+    visited = {}
+    queue = Queue()
+    queue.put([start])
+
+    while not queue.empty():
+        current_path
